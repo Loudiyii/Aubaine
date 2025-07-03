@@ -363,12 +363,12 @@ def afficher_detection_aubaine_flat(df_original, seuil_score_eleve, seuil_parten
             pct_sans = (projets_sans_aubaine / stats['total_projets'] * 100) if stats['total_projets'] > 0 else 0
             st.metric("Sans Aubaine", projets_sans_aubaine, f"{pct_sans:.1f}%")
         with col5:
-            if stats['aubaines_multiples'] > 0:
-                aubaines_mult_df = df_processed[df_processed['nb_aubaines'] > 1]
-                score_moyen = aubaines_mult_df['bert_score'].mean()
-                st.metric("Score BERT Moyen (Multiples)", f"{score_moyen:.3f}")
+            # Ratio des aubaines multiples parmi celles avec aubaines
+            if stats['projets_avec_aubaine'] > 0:
+                ratio_mult = (stats['aubaines_multiples'] / stats['projets_avec_aubaine'] * 100)
+                st.metric("% Multiples/Avec Aubaines", f"{ratio_mult:.1f}%")
             else:
-                st.metric("Score BERT Moyen (Multiples)", "N/A")
+                st.metric("% Multiples/Avec Aubaines", "0%")
         
         # Détail par type d'aubaine
         st.subheader("DÉTAIL - Par Type d'Aubaine")
@@ -671,11 +671,10 @@ def main():
         st.markdown("**Types d'Aubaines Détectés :**")
         st.markdown("• **SIMILARITÉ** : score > seuil")
         st.markdown("• **TEMPORELLE** : |édition_anr - call_year| ≤ 1")
-        st.markdown("• **TRL** : trl_anr = trl_cordis")
+        st.markdown("• **TRL** : trl_anr = trl_cordis")a
         st.markdown(f"• **PARTENAIRE** : % > {seuil_partenaires}% ET ≥{min_partenaires} partners")
         
-        st.markdown("---")
-        st.info("Tous les types d'aubaines sont traités de manière égale, sans hiérarchisation.")
+        
     
     # Chargement des données
     st.header("CHARGEMENT DES DONNÉES")
