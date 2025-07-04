@@ -243,7 +243,7 @@ def create_visualizations_flat(df):
     if df is None or len(df) == 0:
         return None, None, None, None
     
-    # Graphique 1: Distribution par type d'aubaine
+    # Graphique 1: Distribution par Critère d'aubaine
     types_counts = {
         'Similarité': df['aubaine_similarite'].sum(),
         'Temporelle': df['aubaine_temporelle'].sum(),
@@ -254,7 +254,7 @@ def create_visualizations_flat(df):
     fig1 = px.bar(
         x=list(types_counts.keys()),
         y=list(types_counts.values()),
-        title="Distribution par Type d'Aubaine",
+        title="Distribution par Critère d'aubaine",
         labels={'x': 'Type d\'aubaine', 'y': 'Nombre de projets'},
         color=list(types_counts.values()),
         color_continuous_scale='Blues'
@@ -370,8 +370,8 @@ def afficher_detection_aubaine_flat(df_original, seuil_score_eleve, seuil_parten
             else:
                 st.metric("% Multiples/Avec Aubaines", "0%")
         
-        # Détail par type d'aubaine
-        st.subheader("DÉTAIL - Par Type d'Aubaine")
+        # Détail par Critère d'aubaine
+        st.subheader("DÉTAIL - Par Critère d'aubaine")
         col1, col2, col3, col4 = st.columns(4)
         
         with col1:
@@ -442,7 +442,7 @@ def afficher_detection_aubaine_flat(df_original, seuil_score_eleve, seuil_parten
         # Application des filtres
         df_filtered = df_processed.copy()
         
-        # Filtre par type d'aubaine
+        # Filtre par Critère d'aubaine
         if len(types_selectionnes) < 4:
             condition_type = pd.Series([False] * len(df_filtered))
             if 'Similarité' in types_selectionnes:
