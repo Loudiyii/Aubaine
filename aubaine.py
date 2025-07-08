@@ -671,7 +671,7 @@ def main():
         st.markdown("**Types d'Aubaines Détectés :**")
         st.markdown("• **SIMILARITÉ** : score > seuil")
         st.markdown("• **TEMPORELLE** : |édition_anr - call_year| ≤ 1")
-        st.markdown("• **TRL** : trl_anr = trl_cordis")a
+        st.markdown("• **TRL** : trl_anr = trl_cordis")
         st.markdown(f"• **PARTENAIRE** : % > {seuil_partenaires}% ET ≥{min_partenaires} partners")
         
         
